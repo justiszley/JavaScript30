@@ -1,5 +1,6 @@
 const panels = document.querySelector('.panels');
 panels.addEventListener('click', clickHandler)
+panels.addEventListener('transitionend', transitionEndHandler)
 
 let currentTarget = null;
 
@@ -24,4 +25,10 @@ function clickHandler(e) {
 		target.classList.add('open');
 		currentTarget = target;
 	}
+}
+
+function transitionEndHandler(e) {
+	if (e.propertyName !== 'flex-grow') return;
+	const target = e.target;
+	target.classList.toggle('open-active');
 }
