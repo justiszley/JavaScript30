@@ -40,7 +40,7 @@ function createListItems(arr, value) {
 		const nameSpan = document.createElement('span');
 		nameSpan.innerHTML = `${cityName}, ${stateName}`;
 		const populationSpan = document.createElement('span');
-		populationSpan.innerHTML = item.population;
+		populationSpan.innerHTML = numberWithCommas(item.population);
 
 		li.appendChild(nameSpan);
 		li.appendChild(populationSpan);
@@ -64,4 +64,8 @@ function createListItems(arr, value) {
 function insertLis(lisArr) {
 	suggestionList.innerHTML = '';
 	lisArr.forEach(item => suggestionList.appendChild(item))
+}
+
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
