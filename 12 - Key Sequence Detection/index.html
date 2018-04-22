@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key Detection</title>
+  <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
+</head>
+<body>
+<script>
+	const sequence = [];
+	const key = 'dog'
+
+	window.addEventListener('keyup', (e) => {
+		sequence.push(e.key);
+		sequence.splice(-key.length - 1, sequence.length - key.length);
+		console.log(sequence);
+		if (sequence.join('') === key) cornify_add();
+	})
+</script>
+</body>
+</html>
