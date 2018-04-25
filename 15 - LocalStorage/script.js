@@ -1,6 +1,6 @@
 const addItems = document.querySelector('.add-items');
 const itemsList = document.querySelector('.plates');
-const items = [];
+const items = JSON.parse(localStorage.getItem('items')) || [];
 
 
 function populateList(plates = [], platesList) {
@@ -29,13 +29,6 @@ function submitHandler(e) {
 	this.reset()
 }
 
-function initialFill(e) {
-	const savedData = JSON.parse(localStorage.getItem('items'))
-	if (!savedData) return;
-	items.push(...savedData)
-	populateList(items, itemsList)
-}
-
 function checkboxHandler(e) {
 	const target = e.target;
 	const index = target.dataset.index;
@@ -45,7 +38,7 @@ function checkboxHandler(e) {
 
 function closeButtonsHandler(e) {
 	const target = e.target;
-	if (target.nodeName !== 'BUTTON') return;
+	if (!target.matches('button')) return;
 	const targetInput = target.parentNode.querySelector('input')
 	const targetInputIndex = targetInput.dataset.index;
 	items.splice(targetInputIndex, 1);
@@ -54,6 +47,7 @@ function closeButtonsHandler(e) {
 }
 
 addItems.addEventListener('submit', submitHandler)
-document.addEventListener('DOMContentLoaded', initialFill)
 itemsList.addEventListener('change', checkboxHandler)
 itemsList.addEventListener('click', closeButtonsHandler)
+
+populateList(items, itemsList)
